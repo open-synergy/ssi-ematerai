@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+    <record id="ematerai_redphoenix_view_tree" model="ir.ui.view">
+        <field name="name">ematerai.redphoenix.tree</field>
+        <field name="model">ematerai.redphoenix</field>
+        <field name="inherit_id" ref="ssi_ematerai_mixin.ematerai_document_view_tree" />
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <data />
+        </field>
+    </record>
+
+    <record id="ematerai_redphoenix_action" model="ir.actions.act_window">
+        <field name="name">E-Materai Redphoenix</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ematerai.redphoenix</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="ematerai_redphoenix_menu"
+        name="Redphoenix"
+        parent="ssi_ematerai_mixin.root_ematerai_provider_menu"
+        action="ematerai_redphoenix_action"
+        sequence="10"
+    />
+
+</odoo>

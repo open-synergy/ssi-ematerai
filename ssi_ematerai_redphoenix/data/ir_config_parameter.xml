@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record
+            id="ir_config_parameter_module_redphoenix_data"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.module_redphoenix</field>
+            <field name="value">True</field>
+        </record>
+        <record
+            id="ir_config_parameter_rp_login"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.rp_login</field>
+            <field
+                name="value"
+            >https://beta.digitalmaterai.com/api/api/auth/login</field>
+        </record>
+        <record
+            id="ir_config_parameter_rp_add_document_data"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.rp_add_document</field>
+            <field
+                name="value"
+            >https://beta.digitalmaterai.com/api/api/secured/documents</field>
+        </record>
+        <record
+            id="ir_config_parameter_rp_create_order_data"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.rp_create_order</field>
+            <field
+                name="value"
+            >https://beta.digitalmaterai.com/api/api/secured/stamping-order/create</field>
+        </record>
+        <record
+            id="ir_config_parameter_rp_update_param_data"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.rp_update_param</field>
+            <field
+                name="value"
+            >https://beta.digitalmaterai.com/api/api/secured/stamping-order/{stamping_order_id}/params</field>
+        </record>
+        <record
+            id="ir_config_parameter_rp_submit_document_data"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.rp_submit_document</field>
+            <field
+                name="value"
+            >https://beta.digitalmaterai.com/api/api/secured/stamping-order/{stamping_order_id}/submit</field>
+        </record>
+        <record
+            id="ir_config_parameter_rp_generate_sn_data"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.rp_generate_sn</field>
+            <field
+                name="value"
+            >https://beta.digitalmaterai.com/api/api/secured/stamping-order/{stamping_order_id}/generate-sn</field>
+        </record>
+        <record
+            id="ir_config_parameter_rp_complete_terra_data"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.rp_complete_terra</field>
+            <field
+                name="value"
+            >https://beta.digitalmaterai.com/api/api/secured/stamping-order/{stamping_order_id}/complete</field>
+        </record>
+        <record
+            id="ir_config_parameter_rp_download_doc_data"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.rp_download_doc</field>
+            <field
+                name="value"
+            >https://beta.digitalmaterai.com/api/api/secured/stamping-order/{stamping_order_id}/result</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ematerai_redphoenix_user,ematerai.redphoenix,model_ematerai_redphoenix,base.group_user,1,1,1,1
+ematerai_redphoenix_all,ematerai.redphoenix,model_ematerai_redphoenix,,1,0,0,0

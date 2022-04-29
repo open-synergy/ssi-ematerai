@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ematerai_value_user,ematerai.value,model_ematerai_value,base.group_user,1,1,1,1
+ematerai_value_all,ematerai.value,model_ematerai_value,,1,0,0,0
+ematerai_provider_user,ematerai.provider,model_ematerai_provider,base.group_user,1,1,1,1
+ematerai_provider_all,ematerai.provider,model_ematerai_provider,,1,0,0,0
+ematerai_type_user,ematerai.type,model_ematerai_type,base.group_user,1,1,1,1
+ematerai_type_all,ematerai.type,model_ematerai_type,,1,0,0,0
+ematerai_param_user,ematerai.param,model_ematerai_param,base.group_user,1,1,1,1
+ematerai_param_all,ematerai.param,model_ematerai_param,,1,0,0,0
+ematerai_param_detail_all,ematerai.param_detail,model_ematerai_param_detail,,1,0,0,0
+ematerai_document_user,ematerai.document,model_ematerai_document,base.group_user,1,1,1,1
+ematerai_document_all,ematerai.document,model_ematerai_document,,1,0,0,0

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+    <record id="ematerai_document_view_tree" model="ir.ui.view">
+        <field name="name">ematerai.document.tree</field>
+        <field name="model">ematerai.document</field>
+        <field name="arch" type="xml">
+            <tree string="E-Materai Document" editable="bottom">
+                <field name="type_id" />
+                <field name="provider_id" invisible="1" />
+                <field name="provider_res_id" invisible="1" />
+                <field name="provider_model_name" invisible="1" />
+                <field name="value_id" />
+                <field name="original_attachment_id" invisible="1" />
+                <field name="original_datas_fname" invisible="1" />
+                <field
+                    name="original_attachment_data"
+                    widget="binary"
+                    filename="original_datas_fname"
+                />
+                <field name="ematerai_attachment_id" invisible="1" />
+                <field name="ematerai_datas_fname" invisible="1" />
+                <field
+                    name="ematerai_attachment_data"
+                    widget="binary"
+                    filename="ematerai_datas_fname"
+                />
+                <field name="state" />
+                <!-- <button
+                    name="action_add_document"
+                    string="Add Document"
+                    type="object"
+                    icon="fa-check"
+                    confirm="Add Document. Are you sure?"
+                    attrs="{'invisible': [('state', '!=', 'draft')]}"
+                />
+                <button
+                    name="action_create_order"
+                    string="Create Order"
+                    type="object"
+                    icon="fa-check"
+                    confirm="Create Order. Are you sure?"
+                    attrs="{'invisible': [('state', '!=', 'added')]}"
+                />
+                <button
+                    name="action_update_param"
+                    string="Update Param"
+                    type="object"
+                    icon="fa-check"
+                    confirm="Update Param. Are you sure?"
+                    attrs="{'invisible': [('state', '!=', 'preparing')]}"
+                />
+                <button
+                    name="action_submit_document"
+                    string="Submit Document"
+                    type="object"
+                    icon="fa-check"
+                    confirm="Submit Document. Are you sure?"
+                    attrs="{'invisible': [('state', '!=', 'updated')]}"
+                />
+                <button
+                    name="action_generate_sn"
+                    string="Generate SN"
+                    type="object"
+                    icon="fa-check"
+                    confirm="Generate SN. Are you sure?"
+                    attrs="{'invisible': [('state', '!=', 'submitted')]}"
+                />
+                <button
+                    name="action_complete_tera"
+                    string="Complete Terra"
+                    type="object"
+                    icon="fa-check"
+                    confirm="Complete Terra. Are you sure?"
+                    attrs="{'invisible': [('state', '!=', 'sn_generated')]}"
+                /> -->
+                <button
+                    name="action_generate_ematerai"
+                    string="Generate E-Materai"
+                    type="object"
+                    icon="fa-check"
+                    confirm="Generate E-Materai. Are you sure?"
+                />
+            </tree>
+        </field>
+    </record>
+
+</odoo>

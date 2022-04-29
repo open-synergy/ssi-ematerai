@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <data noupdate="1">
+        <record id="ematerai_value_10000" model="ematerai.value">
+            <field name="name">Materai: 10000</field>
+            <field name="code">MAT-10000</field>
+            <field name="ematerai_value">10000</field>
+        </record>
+    </data>
+</odoo>

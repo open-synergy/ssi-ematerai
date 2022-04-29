@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <menuitem id="root_ematerai_menu" name="E-Materai" parent="base.menu_custom" />
+    <menuitem
+        id="root_ematerai_provider_menu"
+        name="Provider"
+        parent="root_ematerai_menu"
+    />
+</odoo>

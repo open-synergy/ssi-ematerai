@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="ematerai_create_button">
+        <button
+            name="%(ssi_ematerai_mixin.create_ematerai_action)d"
+            string="Create E-Materai"
+            type="action"
+        />
+    </template>
+    <template id="ematerai_document_page">
+        <page name="page_ematerai_document" string="E-Materai Document">
+            <group name="grp_ematerai_document_1">
+                <field name="ematerai_document_ids" nolabel="1" />
+            </group>
+        </page>
+    </template>
+</odoo>

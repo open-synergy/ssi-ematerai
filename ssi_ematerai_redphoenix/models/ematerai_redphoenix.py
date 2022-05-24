@@ -107,7 +107,7 @@ class EmateraiRedphoenix(models.Model):
         )
         now = datetime.now()
         str_now = now.strftime("%Y-%m-%d %H:%M:%S")
-        if str_now >= access_token_expiry:
+        if not access_token_expiry or str_now >= access_token_expiry:
             self._login()
 
     @api.multi

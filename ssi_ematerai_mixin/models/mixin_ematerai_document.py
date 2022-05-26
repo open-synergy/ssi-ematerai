@@ -13,7 +13,7 @@ class MixinEmateraiDocument(models.AbstractModel):
 
     _ematerai_document_create_page = False
     _ematerai_document_page_xpath = "//page[last()]"
-    _ematerai_document_button_xpath = "//button[last()]"
+    _ematerai_document_button_xpath = "//header//button[last()]"
 
     ematerai_document_ids = fields.One2many(
         string="E-Materai Document(s)",

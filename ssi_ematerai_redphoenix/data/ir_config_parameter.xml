@@ -2,6 +2,22 @@
 <odoo>
     <data>
         <record
+            id="ir_config_parameter_redphoenix_client_id"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.client_id</field>
+            <field name="value" />
+        </record>
+        <record
+            id="ir_config_parameter_redphoenix_client_secret"
+            model="ir.config_parameter"
+            forcecreate="True"
+        >
+            <field name="key">redphoenix.client_secret</field>
+            <field name="value" />
+        </record>
+        <record
             id="ir_config_parameter_module_redphoenix_data"
             model="ir.config_parameter"
             forcecreate="True"

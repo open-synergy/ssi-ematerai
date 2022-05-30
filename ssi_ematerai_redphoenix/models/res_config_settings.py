@@ -13,16 +13,16 @@ class ResConfigSettings(models.TransientModel):
         string="Redphoenix",
         default="True",
     )
-    client_id = fields.Char(
+    rp_client_id = fields.Char(
         string="Client ID",
     )
-    client_secret = fields.Char(
+    rp_client_secret = fields.Char(
         string="Client Secret",
     )
-    static_jwt_token = fields.Char(
+    rp_token = fields.Char(
         string="Static JWT Token",
     )
-    access_token_expiry = fields.Datetime(
+    rp_token_expiry = fields.Datetime(
         string="Access Token Expire",
     )
     rp_login = fields.Char(
@@ -57,15 +57,15 @@ class ResConfigSettings(models.TransientModel):
         obj_ir_config_parameter.set_param(
             "redphoenix.module_redphoenix", self[0].module_redphoenix
         )
-        obj_ir_config_parameter.set_param("redphoenix.client_id", self[0].client_id)
         obj_ir_config_parameter.set_param(
-            "redphoenix.client_secret", self[0].client_secret
+            "redphoenix.rp_client_id", self[0].rp_client_id
         )
         obj_ir_config_parameter.set_param(
-            "redphoenix.static_jwt_token", self[0].static_jwt_token
+            "redphoenix.rp_client_secret", self[0].rp_client_secret
         )
+        obj_ir_config_parameter.set_param("redphoenix.rp_token", self[0].rp_token)
         obj_ir_config_parameter.set_param(
-            "redphoenix.access_token_expiry", self[0].access_token_expiry
+            "redphoenix.rp_token_expiry", self[0].rp_token_expiry
         )
         obj_ir_config_parameter.set_param("redphoenix.rp_login", self[0].rp_login)
         obj_ir_config_parameter.set_param(
@@ -98,20 +98,20 @@ class ResConfigSettings(models.TransientModel):
             module_redphoenix=obj_ir_config_parameter.get_param(
                 "redphoenix.module_redphoenix", default=False
             ),
-            client_id=obj_ir_config_parameter.get_param(
-                "redphoenix.client_id", default=False
+            rp_client_id=obj_ir_config_parameter.get_param(
+                "redphoenix.rp_client_id", default=False
             ),
-            client_secret=obj_ir_config_parameter.get_param(
-                "redphoenix.client_secret", default=False
+            rp_client_secret=obj_ir_config_parameter.get_param(
+                "redphoenix.rp_client_secret", default=False
             ),
             rp_login=obj_ir_config_parameter.get_param(
                 "redphoenix.rp_login", default=False
             ),
-            static_jwt_token=obj_ir_config_parameter.get_param(
-                "redphoenix.static_jwt_token", default=False
+            rp_token=obj_ir_config_parameter.get_param(
+                "redphoenix.rp_token", default=False
             ),
-            access_token_expiry=obj_ir_config_parameter.get_param(
-                "redphoenix.access_token_expiry", default=False
+            rp_token_expiry=obj_ir_config_parameter.get_param(
+                "redphoenix.rp_token_expiry", default=False
             ),
             rp_add_document=obj_ir_config_parameter.get_param(
                 "redphoenix.rp_add_document", default=False

@@ -21,36 +21,33 @@
                             attrs="{'invisible': [('module_redphoenix','=',False)]}"
                         >
                             <div class="row mt16">
+                                <label for="rp_token" class="col-md-4 o_light_label" />
+                                <field name="rp_token" class="col-md-8 oe_inline" />
+                            </div>
+                            <div class="row mt16">
                                 <label
-                                    for="static_jwt_token"
+                                    for="rp_token_expiry"
                                     class="col-md-4 o_light_label"
                                 />
                                 <field
-                                    name="static_jwt_token"
+                                    name="rp_token_expiry"
                                     class="col-md-8 oe_inline"
                                 />
                             </div>
                             <div class="row mt16">
                                 <label
-                                    for="access_token_expiry"
+                                    for="rp_client_id"
                                     class="col-md-4 o_light_label"
                                 />
-                                <field
-                                    name="access_token_expiry"
-                                    class="col-md-8 oe_inline"
-                                />
-                            </div>
-                            <div class="row mt16">
-                                <label for="client_id" class="col-md-4 o_light_label" />
-                                <field name="client_id" class="col-md-8 oe_inline" />
+                                <field name="rp_client_id" class="col-md-8 oe_inline" />
                             </div>
                             <div class="row mt16">
                                 <label
-                                    for="client_secret"
+                                    for="rp_client_secret"
                                     class="col-md-4 o_light_label"
                                 />
                                 <field
-                                    name="client_secret"
+                                    name="rp_client_secret"
                                     class="col-md-8 oe_inline"
                                 />
                             </div>

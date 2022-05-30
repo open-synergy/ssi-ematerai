@@ -6,7 +6,7 @@
             model="ir.config_parameter"
             forcecreate="True"
         >
-            <field name="key">redphoenix.client_id</field>
+            <field name="key">redphoenix.rp_client_id</field>
             <field name="value" />
         </record>
         <record
@@ -14,7 +14,7 @@
             model="ir.config_parameter"
             forcecreate="True"
         >
-            <field name="key">redphoenix.client_secret</field>
+            <field name="key">redphoenix.rp_client_secret</field>
             <field name="value" />
         </record>
         <record

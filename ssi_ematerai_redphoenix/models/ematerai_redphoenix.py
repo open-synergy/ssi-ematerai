@@ -84,7 +84,7 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _get_client_id(self):
         self.ensure_one()
-        client_id = self._get_credentials_param("redphoenix.client_id")
+        client_id = self._get_credentials_param("redphoenix.rp_client_id")
         if not client_id:
             msg_err = _("Client ID Not Found")
             raise UserError(msg_err)
@@ -93,7 +93,7 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _get_client_secret(self):
         self.ensure_one()
-        client_secret = self._get_credentials_param("redphoenix.client_secret")
+        client_secret = self._get_credentials_param("redphoenix.rp_client_secret")
         if not client_secret:
             msg_err = _("Client Secret Not Found")
             raise UserError(msg_err)
@@ -102,9 +102,7 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _check_expiry_token(self):
         self.ensure_one()
-        access_token_expiry = self._get_credentials_param(
-            "redphoenix.access_token_expiry"
-        )
+        access_token_expiry = self._get_credentials_param("redphoenix.rp_token_expiry")
         now = datetime.now()
         str_now = now.strftime("%Y-%m-%d %H:%M:%S")
         if not access_token_expiry or str_now >= access_token_expiry:
@@ -113,7 +111,7 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _get_static_jwt_token(self):
         self.ensure_one()
-        static_jwt_token = self._get_credentials_param("redphoenix.static_jwt_token")
+        static_jwt_token = self._get_credentials_param("redphoenix.rp_token")
         if not static_jwt_token:
             msg_err = _("Token Not Found")
             raise UserError(msg_err)
@@ -209,12 +207,10 @@ class EmateraiRedphoenix(models.Model):
         access_token = data["access_token"]
         access_token_expiry = data["access_token_expiry"]
         obj_ir_config_parameter = self.env["ir.config_parameter"].sudo()
-        obj_ir_config_parameter.set_param("redphoenix.static_jwt_token", access_token)
+        obj_ir_config_parameter.set_param("redphoenix.rp_token", access_token)
         tz_found = access_token_expiry.find(".")
         dt_token_expiry = access_token_expiry[:tz_found].replace("T", " ")
-        obj_ir_config_parameter.set_param(
-            "redphoenix.access_token_expiry", dt_token_expiry
-        )
+        obj_ir_config_parameter.set_param("redphoenix.rp_token_expiry", dt_token_expiry)
 
     @api.multi
     def _prepare_param_data(self):
@@ -577,6 +573,22 @@ class EmateraiRedphoenix(models.Model):
         self.env.cr.commit()
 
     @api.multi
+    def _post_ematerai(self):
+        self.ensure_one()
+        criteria = [("id", "=", self.res_id)]
+        document = self.env[self.model].search(criteria)
+        message = _("E-Materai is successfully created")
+        _attachments = [
+            (
+                self.ematerai_attachment_id.datas_fname,
+                base64.b64decode(self.ematerai_attachment_data),
+            ),
+        ]
+        document.message_post(
+            body=message, message_type="notification", attachments=_attachments
+        )
+
+    @api.multi
     def _download_document(self):
         self.ensure_one()
         credentials = self._get_redphoenix_credentials()
@@ -591,6 +603,7 @@ class EmateraiRedphoenix(models.Model):
             raise UserError(msg_err)
         if response:
             self.write(self._prepare_download_document_data(response.content))
+            self._post_ematerai()
         else:
             msg_err = _("Response Error")
             raise UserError(msg_err)

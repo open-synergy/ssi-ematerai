@@ -13,6 +13,9 @@ class ResConfigSettings(models.TransientModel):
         string="Redphoenix",
         default="True",
     )
+    rp_base_url = fields.Char(
+        string="Base URL",
+    )
     rp_client_id = fields.Char(
         string="Client ID",
     )
@@ -27,6 +30,9 @@ class ResConfigSettings(models.TransientModel):
     )
     rp_login = fields.Char(
         string="Login API",
+    )
+    rp_inquiry = fields.Char(
+        string="Inquiry Balance API",
     )
     rp_add_document = fields.Char(
         string="Add Doc. API",
@@ -46,6 +52,9 @@ class ResConfigSettings(models.TransientModel):
     rp_complete_terra = fields.Char(
         string="Complete Terra API",
     )
+    rp_complete_sn = fields.Char(
+        string="Complete With SN. API",
+    )
     rp_download_doc = fields.Char(
         string="Download Doc. API",
     )
@@ -57,6 +66,7 @@ class ResConfigSettings(models.TransientModel):
         obj_ir_config_parameter.set_param(
             "redphoenix.module_redphoenix", self[0].module_redphoenix
         )
+        obj_ir_config_parameter.set_param("redphoenix.rp_base_url", self[0].rp_base_url)
         obj_ir_config_parameter.set_param(
             "redphoenix.rp_client_id", self[0].rp_client_id
         )
@@ -68,6 +78,7 @@ class ResConfigSettings(models.TransientModel):
             "redphoenix.rp_token_expiry", self[0].rp_token_expiry
         )
         obj_ir_config_parameter.set_param("redphoenix.rp_login", self[0].rp_login)
+        obj_ir_config_parameter.set_param("redphoenix.rp_inquiry", self[0].rp_inquiry)
         obj_ir_config_parameter.set_param(
             "redphoenix.rp_add_document", self[0].rp_add_document
         )
@@ -87,6 +98,9 @@ class ResConfigSettings(models.TransientModel):
             "redphoenix.rp_complete_terra", self[0].rp_complete_terra
         )
         obj_ir_config_parameter.set_param(
+            "redphoenix.rp_complete_sn", self[0].rp_complete_sn
+        )
+        obj_ir_config_parameter.set_param(
             "redphoenix.rp_download_doc", self[0].rp_download_doc
         )
 
@@ -98,6 +112,9 @@ class ResConfigSettings(models.TransientModel):
             module_redphoenix=obj_ir_config_parameter.get_param(
                 "redphoenix.module_redphoenix", default=False
             ),
+            rp_base_url=obj_ir_config_parameter.get_param(
+                "redphoenix.rp_base_url", default=False
+            ),
             rp_client_id=obj_ir_config_parameter.get_param(
                 "redphoenix.rp_client_id", default=False
             ),
@@ -106,6 +123,9 @@ class ResConfigSettings(models.TransientModel):
             ),
             rp_login=obj_ir_config_parameter.get_param(
                 "redphoenix.rp_login", default=False
+            ),
+            rp_inquiry=obj_ir_config_parameter.get_param(
+                "redphoenix.rp_inquiry", default=False
             ),
             rp_token=obj_ir_config_parameter.get_param(
                 "redphoenix.rp_token", default=False
@@ -130,6 +150,9 @@ class ResConfigSettings(models.TransientModel):
             ),
             rp_complete_terra=obj_ir_config_parameter.get_param(
                 "redphoenix.rp_complete_terra", default=False
+            ),
+            rp_complete_sn=obj_ir_config_parameter.get_param(
+                "redphoenix.rp_complete_sn", default=False
             ),
             rp_download_doc=obj_ir_config_parameter.get_param(
                 "redphoenix.rp_download_doc", default=False

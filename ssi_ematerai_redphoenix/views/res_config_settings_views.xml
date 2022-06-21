@@ -52,8 +52,22 @@
                                 />
                             </div>
                             <div class="row mt16">
+                                <label
+                                    for="rp_base_url"
+                                    class="col-md-4 o_light_label"
+                                />
+                                <field name="rp_base_url" class="col-md-8 oe_inline" />
+                            </div>
+                            <div class="row mt16">
                                 <label for="rp_login" class="col-md-4 o_light_label" />
                                 <field name="rp_login" class="col-md-8 oe_inline" />
+                            </div>
+                            <div class="row mt16">
+                                <label
+                                    for="rp_inquiry"
+                                    class="col-md-4 o_light_label"
+                                />
+                                <field name="rp_inquiry" class="col-md-8 oe_inline" />
                             </div>
                             <div class="row mt16">
                                 <label
@@ -112,6 +126,16 @@
                                 />
                                 <field
                                     name="rp_complete_terra"
+                                    class="col-md-8 oe_inline"
+                                />
+                            </div>
+                            <div class="row mt16">
+                                <label
+                                    for="rp_complete_sn"
+                                    class="col-md-4 o_light_label"
+                                />
+                                <field
+                                    name="rp_complete_sn"
                                     class="col-md-8 oe_inline"
                                 />
                             </div>

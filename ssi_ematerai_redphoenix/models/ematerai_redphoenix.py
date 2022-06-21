@@ -41,6 +41,7 @@ class EmateraiRedphoenix(models.Model):
     def _get_redphoenix_credentials(self):
         self.ensure_one()
         static_jwt_token = False
+        rp_inquiry = False
         rp_add_document = False
         rp_create_order = False
         rp_update_param = False
@@ -48,9 +49,11 @@ class EmateraiRedphoenix(models.Model):
         rp_generate_sn = False
         rp_complete_terra = False
         rp_download_doc = False
+        rp_complete_sn = False
 
         self._check_expiry_token()
         static_jwt_token = self._get_static_jwt_token()
+        rp_inquiry = self._get_inquiry_api()
         rp_add_document = self._get_add_doc_api()
         rp_create_order = self._get_create_order_api()
         if self.stamping_order:
@@ -58,27 +61,43 @@ class EmateraiRedphoenix(models.Model):
             rp_submit_document = self._get_submit_doc_api()
             rp_generate_sn = self._get_generate_sn_api()
             rp_complete_terra = self._get_complete_terra_api()
+            rp_complete_sn = self._get_complete_sn_api()
             rp_download_doc = self._get_download_doc_api()
 
         return {
             "static_jwt_token": static_jwt_token,
+            "rp_inquiry": rp_inquiry,
             "rp_add_document": rp_add_document,
             "rp_create_order": rp_create_order,
             "rp_update_param": rp_update_param,
             "rp_submit_document": rp_submit_document,
             "rp_generate_sn": rp_generate_sn,
             "rp_complete_terra": rp_complete_terra,
+            "rp_complete_sn": rp_complete_sn,
             "rp_download_doc": rp_download_doc,
         }
 
     @api.multi
-    def _get_credentials_param(self, param):
+    def _get_credentials_param(self, param, type=False):
         self.ensure_one()
+        result = False
         obj_ir_config_parameter = self.env["ir.config_parameter"].sudo()
+
         result = obj_ir_config_parameter.get_param(
             param,
             default=False,
         )
+        if type == "api":
+            baseURL = obj_ir_config_parameter.get_param(
+                "redphoenix.rp_base_url",
+                default=False,
+            )
+            if baseURL:
+                result = baseURL + result
+            else:
+                msg_err = _("Base URL Not Found")
+                raise UserError(msg_err)
+
         return result
 
     @api.multi
@@ -120,16 +139,27 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _get_api_login(self):
         self.ensure_one()
-        rp_login = self._get_credentials_param("redphoenix.rp_login")
+        rp_login = self._get_credentials_param("redphoenix.rp_login", "api")
         if not rp_login:
             msg_err = _("Login API Not Found")
             raise UserError(msg_err)
         return rp_login
 
     @api.multi
+    def _get_inquiry_api(self):
+        self.ensure_one()
+        rp_inquiry = self._get_credentials_param("redphoenix.rp_inquiry", "api")
+        if not rp_inquiry:
+            msg_err = _("Inquiry Balance API Not Found")
+            raise UserError(msg_err)
+        return rp_inquiry
+
+    @api.multi
     def _get_add_doc_api(self):
         self.ensure_one()
-        rp_add_document = self._get_credentials_param("redphoenix.rp_add_document")
+        rp_add_document = self._get_credentials_param(
+            "redphoenix.rp_add_document", "api"
+        )
         if not rp_add_document:
             msg_err = _("Add Doc. API Not Found")
             raise UserError(msg_err)
@@ -138,7 +168,9 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _get_create_order_api(self):
         self.ensure_one()
-        rp_create_order = self._get_credentials_param("redphoenix.rp_create_order")
+        rp_create_order = self._get_credentials_param(
+            "redphoenix.rp_create_order", "api"
+        )
         if not rp_create_order:
             msg_err = _("Create Order API Not Found")
             raise UserError(msg_err)
@@ -147,7 +179,9 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _get_update_param_api(self):
         self.ensure_one()
-        rp_update_param = self._get_credentials_param("redphoenix.rp_update_param")
+        rp_update_param = self._get_credentials_param(
+            "redphoenix.rp_update_param", "api"
+        )
         if not rp_update_param:
             msg_err = _("Update Param API Not Found")
             raise UserError(msg_err)
@@ -159,7 +193,7 @@ class EmateraiRedphoenix(models.Model):
     def _get_submit_doc_api(self):
         self.ensure_one()
         rp_submit_document = self._get_credentials_param(
-            "redphoenix.rp_submit_document"
+            "redphoenix.rp_submit_document", "api"
         )
         if not rp_submit_document:
             msg_err = _("Submit Document API Not Found")
@@ -171,7 +205,7 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _get_generate_sn_api(self):
         self.ensure_one()
-        rp_generate_sn = self._get_credentials_param("redphoenix.rp_generate_sn")
+        rp_generate_sn = self._get_credentials_param("redphoenix.rp_generate_sn", "api")
         if not rp_generate_sn:
             msg_err = _("Generate SN. API Not Found")
             raise UserError(msg_err)
@@ -182,7 +216,9 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _get_download_doc_api(self):
         self.ensure_one()
-        rp_download_doc = self._get_credentials_param("redphoenix.rp_download_doc")
+        rp_download_doc = self._get_credentials_param(
+            "redphoenix.rp_download_doc", "api"
+        )
         if not rp_download_doc:
             msg_err = _("Download Doc. API Not Found")
             raise UserError(msg_err)
@@ -193,13 +229,26 @@ class EmateraiRedphoenix(models.Model):
     @api.multi
     def _get_complete_terra_api(self):
         self.ensure_one()
-        rp_complete_terra = self._get_credentials_param("redphoenix.rp_complete_terra")
+        rp_complete_terra = self._get_credentials_param(
+            "redphoenix.rp_complete_terra", "api"
+        )
         if not rp_complete_terra:
             msg_err = _("Complete Terra API Not Found")
             raise UserError(msg_err)
         else:
             rp_complete_terra = self._generate_stamping_order(rp_complete_terra)
         return rp_complete_terra
+
+    @api.multi
+    def _get_complete_sn_api(self):
+        self.ensure_one()
+        rp_complete_sn = self._get_credentials_param("redphoenix.rp_complete_sn", "api")
+        if not rp_complete_sn:
+            msg_err = _("Complete With SN API Not Found")
+            raise UserError(msg_err)
+        else:
+            rp_complete_sn = self._generate_stamping_order(rp_complete_sn)
+        return rp_complete_sn
 
     @api.multi
     def _prepare_access_token(self, data):
@@ -573,6 +622,28 @@ class EmateraiRedphoenix(models.Model):
         self.env.cr.commit()
 
     @api.multi
+    def _complete_sn(self):
+        self.ensure_one()
+        credentials = self._get_redphoenix_credentials()
+        headers = {
+            "Authorization": "Bearer " + credentials["static_jwt_token"],
+        }
+
+        try:
+            response = requests.put(credentials["rp_complete_sn"], headers=headers)
+        except requests.exceptions.Timeout:
+            msg_err = _("Timeout: the server did not reply within 30s")
+            raise UserError(msg_err)
+
+        check, err_resp = self.check_redphoenix_meta(response, "Complete SN")
+        if check:
+            self.write(self._prepare_complete_tera_data())
+        else:
+            msg_err = _(err_resp)
+            raise UserError(msg_err)
+        self.env.cr.commit()
+
+    @api.multi
     def _post_ematerai(self):
         self.ensure_one()
         criteria = [("id", "=", self.res_id)]
@@ -609,49 +680,6 @@ class EmateraiRedphoenix(models.Model):
             raise UserError(msg_err)
         self.env.cr.commit()
 
-    # @api.multi
-    # def _action_add_document(self):
-    #     self.ensure_one()
-    #     self._add_document()
-    #     if self.redphoenix_document_id:
-    #         self.ematerai_document_id.action_create_order()
-    #
-    # @api.multi
-    # def _action_create_order(self):
-    #     self.ensure_one()
-    #     if self.stamping_order:
-    #         self._create_order()
-    #         self.ematerai_document_id.action_update_param()
-    #
-    # @api.multi
-    # def _action_update_param(self):
-    #     self.ensure_one()
-    #     raise UserError(_("Update Param Masuk"))
-    #     if self.stamping_order:
-    #         self._update_param()
-    #         self.ematerai_document_id.action_submit_document()
-    #
-    # @api.multi
-    # def _action_submit_document(self):
-    #     self.ensure_one()
-    #     if self.stamping_order:
-    #         self._submit_document()
-    #         self.ematerai_document_id.action_generate_sn()
-    #
-    # @api.multi
-    # def _action_generate_sn(self):
-    #     self.ensure_one()
-    #     if self.stamping_order:
-    #         self._generate_sn()
-    #         self.ematerai_document_id.action_complete_tera()
-    #
-    # @api.multi
-    # def _action_complete_tera(self):
-    #     self.ensure_one()
-    #     if self.stamping_order:
-    #         self._complete_tera()
-    #         self._download_document()
-
     @api.multi
     def _action_generate_ematerai(self):
         self.ensure_one()
@@ -661,7 +689,6 @@ class EmateraiRedphoenix(models.Model):
         if self.stamping_order:
             self._update_param()
             self._submit_document()
-            self._generate_sn()
-            self._complete_tera()
+            self._complete_sn()
             self._download_document()
         return True

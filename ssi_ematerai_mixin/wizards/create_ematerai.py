@@ -3,7 +3,10 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl).
 
 import base64
+import tempfile
 from datetime import datetime
+
+import ghostscript
 
 from odoo import api, fields, models
 
@@ -82,13 +85,35 @@ class CreateEmaterai(models.TransientModel):
         else:
             pdf = report_id.render_qweb_pdf(active_ids)
 
-        b64_pdf = base64.b64encode(pdf[0])
+        b64_pdf = base64.b64encode(pdf[0])  # Bytes
+        input_pdf = tempfile.NamedTemporaryFile()
+        output_pdf = tempfile.NamedTemporaryFile()
+
+        try:
+            input_pdf.write(base64.b64decode(b64_pdf))
+            args = [
+                "downgradePDF",
+                "-sDEVICE=pdfwrite",
+                "-dCompatibilityLevel=1.6",
+                "-dNOPAUSE",
+                "-dQUIET",
+                "-dBATCH",
+                "-sOutputFile=" + output_pdf.name,
+                input_pdf.name,
+            ]
+            ghostscript.Ghostscript(*args)
+            output_pdf.seek(0)
+            b64_pdf_new = base64.b64encode(output_pdf.read())
+        finally:
+            input_pdf.close()
+            output_pdf.close()
+
         datetime_now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = "report_" + datetime_now
         return {
             "name": filename,
             "type": "binary",
-            "datas": b64_pdf,
+            "datas": b64_pdf_new,
             "datas_fname": filename + ".pdf",
             "store_fname": filename,
             "res_model": active_model,

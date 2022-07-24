@@ -4,7 +4,7 @@
 
 {
     "name": "E-Materai Mixin",
-    "version": "11.0.1.0.1",
+    "version": "11.0.2.0.0",
     "category": "Administration",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
@@ -14,6 +14,11 @@
         "base",
         "ssi_master_data_mixin",
     ],
+    "external_dependencies": {
+        "python": [
+            "ghostscript",
+        ],
+    },
     "data": [
         "security/ir.model.access.csv",
         "menu.xml",

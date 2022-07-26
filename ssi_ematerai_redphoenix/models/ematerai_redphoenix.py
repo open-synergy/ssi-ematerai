@@ -445,8 +445,7 @@ class EmateraiRedphoenix(models.Model):
         self.ensure_one()
         obj_ir_attachment = self.env["ir.attachment"]
         b64_pdf = base64.b64encode(data)
-        datetime_now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = "ematerai_" + datetime_now
+        filename = self.original_datas_fname.split(".")[0] + "_ematerai"
         ir_values = {
             "name": filename,
             "type": "binary",

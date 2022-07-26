@@ -4,11 +4,13 @@
 
 import base64
 import tempfile
+import time
 from datetime import datetime
 
 import ghostscript
 
 from odoo import api, fields, models
+from odoo.tools.safe_eval import safe_eval
 
 
 class CreateEmaterai(models.TransientModel):
@@ -80,6 +82,7 @@ class CreateEmaterai(models.TransientModel):
         self.ensure_one()
         active_ids = self.env.context.get("active_ids", False)
         active_model = self.env.context.get("active_model", "")
+        obj = self.env[active_model].browse(active_ids)
         if report_id.report_type == "aeroo":
             pdf = report_id.render_aeroo(active_ids, {})
         else:
@@ -109,7 +112,13 @@ class CreateEmaterai(models.TransientModel):
             output_pdf.close()
 
         datetime_now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = "report_" + datetime_now
+        filename = report_id.name + "_" + datetime_now
+        if report_id.print_report_name:
+            filename = safe_eval(
+                report_id.print_report_name, {"object": obj, "time": time}
+            )
+            filename = filename + "_" + datetime_now
+
         return {
             "name": filename,
             "type": "binary",

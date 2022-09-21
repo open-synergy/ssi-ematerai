@@ -24,7 +24,6 @@ class EmateraiDocument(models.Model):
     original_attachment_id = fields.Many2one(
         string="Attachment(Original)",
         comodel_name="ir.attachment",
-        ondelete="restrict",
     )
     original_attachment_data = fields.Binary(
         string="File Content Attachment(Original)",
@@ -39,7 +38,6 @@ class EmateraiDocument(models.Model):
     ematerai_attachment_id = fields.Many2one(
         string="Attachment(E-Materai)",
         comodel_name="ir.attachment",
-        ondelete="restrict",
     )
     ematerai_attachment_data = fields.Binary(
         string="File Content Attachment(E-Materai)",
@@ -54,12 +52,10 @@ class EmateraiDocument(models.Model):
     type_id = fields.Many2one(
         string="Type",
         comodel_name="ematerai.type",
-        ondelete="restrict",
     )
     value_id = fields.Many2one(
         string="Value",
         comodel_name="ematerai.value",
-        ondelete="restrict",
     )
     state = fields.Selection(
         string="State",

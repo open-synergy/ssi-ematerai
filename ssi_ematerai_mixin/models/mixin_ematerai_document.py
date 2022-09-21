@@ -64,3 +64,11 @@ class MixinEmateraiDocument(models.AbstractModel):
             new_fields.update(res["fields"])
             res["fields"] = new_fields
         return res
+
+    @api.multi
+    def unlink(self):
+        ematerai_document_ids = self.mapped("ematerai_document_ids")
+        res = super(MixinEmateraiDocument, self).unlink()
+        if res:
+            ematerai_document_ids.unlink()
+        return res

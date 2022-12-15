@@ -23,6 +23,24 @@ class MixinEmateraiDocument(models.AbstractModel):
         auto_join=True,
     )
 
+    @api.depends(
+        "ematerai_document_ids",
+        "ematerai_document_ids.state",
+    )
+    def _compute_ematerai_total(self):
+        for document in self:
+            result = 0
+            ematerai_success = self.ematerai_document_ids.filtered(
+                lambda x: x.state == "success"
+            )
+            if ematerai_success:
+                result = len(ematerai_success)
+            document.ematerai_total = result
+
+    ematerai_total = fields.Integer(
+        string="E-Materai Total", compute="_compute_ematerai_total"
+    )
+
     @api.multi
     def _action_create_ematerai(self):
         self.ensure_one()

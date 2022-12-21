@@ -30,7 +30,7 @@ class MixinEmateraiDocument(models.AbstractModel):
     def _compute_ematerai_total(self):
         for document in self:
             result = 0
-            ematerai_success = self.ematerai_document_ids.filtered(
+            ematerai_success = document.ematerai_document_ids.filtered(
                 lambda x: x.state == "success"
             )
             if ematerai_success:

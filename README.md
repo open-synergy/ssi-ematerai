@@ -14,7 +14,13 @@ ssi-ematerai
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[ssi_ematerai_mixin](ssi_ematerai_mixin/) | 11.0.2.2.0 |  | E-Materai Mixin
+[ssi_ematerai_redphoenix](ssi_ematerai_redphoenix/) | 11.0.1.3.0 |  | E-Materai Redphoenix
+[test_ssi_ematerai_mixin](test_ssi_ematerai_mixin/) | 11.0.1.0.0 |  | Test Module: Ematerai Mixin
 
 [//]: # (end addons)
 
